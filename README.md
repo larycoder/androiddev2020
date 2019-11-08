@@ -10,7 +10,7 @@ Students are expected to:
 Student Info
 =======================
 
-* Name: *YourNameHere*
-* ID: *YourIdHere*
-* Group ID: *Your Group ID here*
+* Name: Le Nhu Chu Hiep
+* ID: usth-bi8062
+* Group ID: group 5
 
