@@ -2,11 +2,8 @@ package vn.edu.usth.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 public class WeatherActivity extends AppCompatActivity {
@@ -22,6 +19,8 @@ public class WeatherActivity extends AppCompatActivity {
 
         // create fragment
         ForecastFragment frag = new ForecastFragment();
+        // add fragment to container
+        getSupportFragmentManager().beginTransaction().add(R.id.container, frag).commit();
     }
 
     @Override
