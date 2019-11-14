@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 public class WeatherActivity extends AppCompatActivity {
     @Override
@@ -13,14 +12,10 @@ public class WeatherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weather);
         Log.i("Create", "call Create");
 
-        // add hello world
-        TextView msg = (TextView) findViewById(R.id.textView);
-        msg.setText("hello world");
-
         // create fragment
         ForecastFragment frag = new ForecastFragment();
         // add fragment to container
-        getSupportFragmentManager().beginTransaction().add(R.id.container, frag).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.LinearLayout, frag).commit();
     }
 
     @Override
