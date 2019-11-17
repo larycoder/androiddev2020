@@ -15,7 +15,7 @@ public class WeatherActivity extends AppCompatActivity {
         // create fragment
         ForecastFragment frag = new ForecastFragment();
         // add fragment to container
-        getSupportFragmentManager().beginTransaction().add(R.id.LinearLayout, frag).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.Main, frag).commit();
     }
 
     @Override
