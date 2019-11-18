@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,14 +28,20 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // get current view
-        View view = inflater.inflate(R.layout.forecast_fragment, container, false);
+        LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.forecast_fragment, null, false);
 
-        // get linear layout
-        LinearLayout ll = (LinearLayout) view;
-
-        // get second text
-        TextView tv = (TextView) ll.getChildAt(2);
-        tv.setText("best world");
-        return view;
+        // setup context of 10 forecast line
+        for(int i = 0; i < 10; i++) {
+            LinearLayout line = (LinearLayout) inflater.inflate(R.layout.forecast_line_status, null, false);
+            // set name
+            ((TextView) line.getChildAt(0)).setText("Thursday");
+            // set Image
+            ((ImageView) line.getChildAt(1)).setImageResource(R.drawable.weather_icon);
+            // set status
+            ((TextView) line.getChildAt(2)).setText("Partly Cloudy");
+            // add forecast line to forecast table
+            ll.addView(line);
+        }
+        return ll;
     }
 }
