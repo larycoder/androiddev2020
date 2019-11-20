@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 /**
@@ -28,20 +29,35 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // get current view
-        LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.forecast_fragment, null, false);
+        ScrollView sv = (ScrollView) inflater.inflate(R.layout.forecast_fragment, null, false);
+        LinearLayout ll = (LinearLayout) sv.getChildAt(0);
+
+        // set enum of days
+        String[] days = {"Mon", "Tue", "Wed", "Thus", "Fri", "Sat", "Sun"};
+
+        // set enum of weather
+        int[] weather_type = {R.drawable.cloudy, R.drawable.heavy_rain, R.drawable.rain, R.drawable.rainy, R.drawable.sunny};
+
+        // set enum of status
+        String[] status1 = {"Clouday", "Heavy_rain", "Rain", "Rainy", "Sunny"};
+        String status2 = "0C - 100C";
 
         // setup context of 10 forecast line
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 7; i++) {
             LinearLayout line = (LinearLayout) inflater.inflate(R.layout.forecast_line_status, null, false);
             // set name
-            ((TextView) line.getChildAt(0)).setText("Thursday");
+            ((TextView) line.getChildAt(0)).setText(days[i % 7]);
+
             // set Image
-            ((ImageView) line.getChildAt(1)).setImageResource(R.drawable.weather_icon);
+            ((ImageView) line.getChildAt(1)).setImageResource(weather_type[i % 5]);
+
             // set status
-            ((TextView) line.getChildAt(2)).setText("Partly Cloudy");
+            ((TextView) ((LinearLayout) line.getChildAt(2)).getChildAt(0)).setText(status1[i % 5]);
+            ((TextView) ((LinearLayout) line.getChildAt(2)).getChildAt(1)).setText(status2);
+
             // add forecast line to forecast table
             ll.addView(line);
         }
-        return ll;
+        return sv;
     }
 }
