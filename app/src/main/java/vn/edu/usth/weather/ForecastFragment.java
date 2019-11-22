@@ -39,7 +39,7 @@ public class ForecastFragment extends Fragment {
         int[] weather_type = {R.drawable.cloudy, R.drawable.heavy_rain, R.drawable.rain, R.drawable.rainy, R.drawable.sunny};
 
         // set enum of status
-        String[] status1 = {"Clouday", "Heavy_rain", "Rain", "Rainy", "Sunny"};
+        String[] status1 = {"Cloudy", "Heavy_rain", "Rain", "Rainy", "Sunny"};
         String status2 = "0C - 100C";
 
         // setup context of 10 forecast line
