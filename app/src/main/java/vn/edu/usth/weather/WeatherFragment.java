@@ -20,13 +20,16 @@ public class WeatherFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // set string of weather image
-        int[] img = {R.drawable.cloudy, R.drawable.rain, R.drawable.rainy, R.drawable.heavy_rain, R.drawable.sunny};
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
-        ((ImageView) view.findViewById(R.id.WeatherFragment)).setImageResource(img[new Random().nextInt(5)]);
-        ((TextView) view.findViewById(R.id.Main_status_weather)).setText("120C\nSunny");
+
+        // set random weather status
+        int ran = new Random().nextInt(5);
+
+        // set status to weather table
+        ((ImageView) view.findViewById(R.id.WeatherFragment)).setImageResource(getResources().obtainTypedArray(R.array.weather_img).getResourceId(ran, -1));
+        ((TextView) view.findViewById(R.id.Main_status_weather)).setText("120C\n" + getResources().getStringArray(R.array.weather_status)[ran]);
         ((TextView) view.findViewById(R.id.Main_city)).setText("Paris");
         return view;
     }

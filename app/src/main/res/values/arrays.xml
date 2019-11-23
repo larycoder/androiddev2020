@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="city">
+        <item name="hanoi">Hanoi</item>
+        <item name="paris">Paris</item>
+        <item name="toulouse">Toulouse</item>
+    </string-array>
+
+    <string-array name="days">
+        <item name="mon">Mon</item>
+        <item name="tue">Tue</item>
+        <item name="wed">Wed</item>
+        <item name="thu">Thu</item>
+        <item name="fri">Fri</item>
+        <item name="sat">Sat</item>
+        <item name="sun">Sun</item>
+    </string-array>
+
+    <string-array name="weather_status">
+        <item name="heavy_rain">Heavy Rain</item>
+        <item name="rainy">Rainy</item>
+        <item name="rain">Rain</item>
+        <item name="sunny">Sunny</item>
+        <item name="cloudy">Cloudy</item>
+    </string-array>
+
+    <integer-array name="weather_img">
+        <item name="heavy_rain">@drawable/heavy_rain</item>
+        <item name="rainy">@drawable/rainy</item>
+        <item name="rain">@drawable/rain</item>
+        <item name="sunny">@drawable/sunny</item>
+        <item name="cloudy">@drawable/cloudy</item>
+    </integer-array>
+</resources>

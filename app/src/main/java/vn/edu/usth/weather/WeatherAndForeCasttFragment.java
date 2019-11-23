@@ -32,6 +32,7 @@ public class WeatherAndForeCasttFragment extends Fragment {
         // set city text view
         RelativeLayout Rl = view.findViewById(R.id.WeatherLayout);
         TextView city = Rl.findViewById(R.id.Main_city);
+        getResources().getStringArray(R.array.city);
         city.setText(getArguments().getString("city"));
     }
 

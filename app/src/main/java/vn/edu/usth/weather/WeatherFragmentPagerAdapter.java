@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class WeatherFragmentPagerAdapter extends FragmentPagerAdapter {
     private final int PAGE_COUNT = 3;
-    private String titles[] = new String[] {"Hanoi", "Paris", "Toulouse"};
+    private String titles[] = new String[] {"hanoi", "paris", "toulouse"};
 
     public WeatherFragmentPagerAdapter(FragmentManager fm){
         super(fm);
