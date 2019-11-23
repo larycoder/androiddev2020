@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="city">
+    <string-array name="city_en">
         <item name="hanoi">Hanoi</item>
         <item name="paris">Paris</item>
         <item name="toulouse">Toulouse</item>
     </string-array>
 
-    <string-array name="days">
+    <string-array name="city">
+        <item name="hanoi">Ha Noi</item>
+        <item name="paris">Paris</item>
+        <item name="toulouse">Toulouse</item>
+    </string-array>
+
+    <string-array name="days_en">
         <item name="mon">Mon</item>
         <item name="tue">Tue</item>
         <item name="wed">Wed</item>
@@ -16,12 +22,30 @@
         <item name="sun">Sun</item>
     </string-array>
 
-    <string-array name="weather_status">
+    <string-array name="days">
+        <item name="mon">Thu Hai</item>
+        <item name="tue">Thu Ba</item>
+        <item name="wed">Thu Tu</item>
+        <item name="thu">Thu Nam</item>
+        <item name="fri">Thu Sau</item>
+        <item name="sat">Thu Bay</item>
+        <item name="sun">Chu Nhat</item>
+    </string-array>
+
+    <string-array name="weather_status_en">
         <item name="heavy_rain">Heavy Rain</item>
         <item name="rainy">Rainy</item>
         <item name="rain">Rain</item>
         <item name="sunny">Sunny</item>
         <item name="cloudy">Cloudy</item>
+    </string-array>
+
+    <string-array name="weather_status">
+        <item name="heavy_rain">Mua To</item>
+        <item name="rainy">Mua Rao</item>
+        <item name="rain">Mua Phun</item>
+        <item name="sunny">Nang</item>
+        <item name="cloudy">Co May</item>
     </string-array>
 
     <integer-array name="weather_img">
