@@ -32,8 +32,7 @@ public class WeatherAndForeCasttFragment extends Fragment {
         // set city text view
         RelativeLayout Rl = view.findViewById(R.id.WeatherLayout);
         TextView city = Rl.findViewById(R.id.Main_city);
-        getResources().getStringArray(R.array.city);
-        city.setText(getArguments().getString("city"));
+        city.setText(getResources().getStringArray(R.array.city)[getArguments().getInt("city")]);
     }
 
     @Override
@@ -43,13 +42,13 @@ public class WeatherAndForeCasttFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_weather_and_fore_castt, container, false);
     }
 
-    protected static WeatherAndForeCasttFragment newInstance(String city){
+    protected static WeatherAndForeCasttFragment newInstance(int city){
         // create object
         WeatherAndForeCasttFragment obj = new WeatherAndForeCasttFragment();
 
         // add city to each pager
         Bundle data = new Bundle();
-        data.putString("city", city);
+        data.putInt("city", city);
         obj.setArguments(data);
 
         return obj;

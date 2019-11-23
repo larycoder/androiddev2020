@@ -17,6 +17,7 @@ public class WeatherActivity extends AppCompatActivity {
 
         // create adapter
         WeatherFragmentPagerAdapter adapter = new WeatherFragmentPagerAdapter(getSupportFragmentManager());
+        adapter.setResource(getApplicationContext());
 
         ViewPager pager = findViewById(R.id.pager);
         pager.setOffscreenPageLimit(2);
