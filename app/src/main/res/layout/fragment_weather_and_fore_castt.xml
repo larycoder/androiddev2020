@@ -13,6 +13,7 @@
         android:layout_height="300dp"
         android:name="vn.edu.usth.weather.WeatherFragment"/>
     <fragment
+        android:id="@+id/ForecastLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:name="vn.edu.usth.weather.ForecastFragment"/>

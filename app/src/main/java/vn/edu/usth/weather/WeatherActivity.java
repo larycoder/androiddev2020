@@ -6,6 +6,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.material.tabs.TabLayout;
+
 public class WeatherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,9 +17,14 @@ public class WeatherActivity extends AppCompatActivity {
 
         // create adapter
         WeatherFragmentPagerAdapter adapter = new WeatherFragmentPagerAdapter(getSupportFragmentManager());
+
         ViewPager pager = findViewById(R.id.pager);
         pager.setOffscreenPageLimit(2);
         pager.setAdapter(adapter);
+
+        // create tab layout
+        TabLayout tab = findViewById(R.id.tab);
+        tab.setupWithViewPager(pager);
     }
 
     @Override

@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.Random;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -48,11 +50,14 @@ public class ForecastFragment extends Fragment {
             // set name
             ((TextView) line.getChildAt(0)).setText(days[i % 7]);
 
+            // set random for status
+            int ran = new Random().nextInt(5);
+
             // set Image
-            ((ImageView) line.getChildAt(1)).setImageResource(weather_type[i % 5]);
+            ((ImageView) line.getChildAt(1)).setImageResource(weather_type[ran]);
 
             // set status
-            ((TextView) ((LinearLayout) line.getChildAt(2)).getChildAt(0)).setText(status1[i % 5]);
+            ((TextView) ((LinearLayout) line.getChildAt(2)).getChildAt(0)).setText(status1[ran]);
             ((TextView) ((LinearLayout) line.getChildAt(2)).getChildAt(1)).setText(status2);
 
             // add forecast line to forecast table
