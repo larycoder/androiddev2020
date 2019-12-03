@@ -3,8 +3,8 @@ package vn.edu.usth.weather;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.icu.util.Output;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -13,7 +13,6 @@ import com.google.android.material.tabs.TabLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -44,7 +43,7 @@ public class WeatherActivity extends AppCompatActivity {
         // addFileToSdcard();
 
         // play mp3
-        MediaPlayer mp = MediaPlayer.create(WeatherActivity.this, R.raw.nhacdubaothoitietvtc14);
+        MediaPlayer mp = MediaPlayer.create(WeatherActivity.this, Uri.parse(PathFile));
         mp.start();
     }
 
