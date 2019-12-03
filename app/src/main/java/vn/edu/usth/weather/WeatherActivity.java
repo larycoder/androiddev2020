@@ -1,6 +1,7 @@
 package vn.edu.usth.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.media.MediaPlayer;
@@ -43,8 +44,11 @@ public class WeatherActivity extends AppCompatActivity {
         // addFileToSdcard();
 
         // play mp3
-        MediaPlayer mp = MediaPlayer.create(WeatherActivity.this, Uri.parse(PathFile));
-        mp.start();
+        // MediaPlayer mp = MediaPlayer.create(WeatherActivity.this, Uri.parse(PathFile));
+        // mp.start();
+
+        // add toolbar for weather activity
+        setSupportActionBar((Toolbar) findViewById(R.id.bar));
     }
 
     @Override
