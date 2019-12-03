@@ -41,10 +41,11 @@ public class WeatherActivity extends AppCompatActivity {
         tab.setupWithViewPager(pager);
 
         // add file to sdcard
-        addFileToSdcard();
+        // addFileToSdcard();
 
         // play mp3
-//        MediaPlayer mp = MediaPlayer.create(WeatherActivity.this, )
+        MediaPlayer mp = MediaPlayer.create(WeatherActivity.this, R.raw.nhacdubaothoitietvtc14);
+        mp.start();
     }
 
     @Override
