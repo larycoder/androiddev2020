@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -49,6 +50,12 @@ public class WeatherActivity extends AppCompatActivity {
 
         // add toolbar for weather activity
         setSupportActionBar((Toolbar) findViewById(R.id.bar));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
     }
 
     @Override
