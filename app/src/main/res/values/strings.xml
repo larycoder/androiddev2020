@@ -6,4 +6,5 @@
     <string name="temp">"0C-100C"</string>
     <string name="RefreshBar">Refresh</string>
     <string name="SettingsBar">Settings</string>
+    <string name="OverFlowMenu">FlowMenu</string>
 </resources>

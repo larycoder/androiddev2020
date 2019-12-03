@@ -9,8 +9,16 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/Settings"
+        android:id="@+id/OverFlowMenu"
         android:icon="@drawable/ic_more_vert_black_24dp"
-        android:title="@string/SettingsBar"
-        app:showAsAction="ifRoom"/>
-</menu>
+        android:title="@string/OverFlowMenu"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/Settings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="@string/SettingsBar"
+                app:showAsAction="ifRoom"/>
+        </menu>
+    </item>
+    </menu>

@@ -6,4 +6,5 @@
     <string name="temp">"0C-100C"</string>
     <string name="RefreshBar">Lam Moi</string>
     <string name="SettingsBar">Cai Dat</string>
+    <string name="OverFlowMenu">Tran Thuc Don</string>
 </resources>
