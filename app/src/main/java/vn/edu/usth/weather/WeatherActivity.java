@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.zip.Inflater;
 
 public class WeatherActivity extends AppCompatActivity {
     // link to storage of file
@@ -69,6 +71,7 @@ public class WeatherActivity extends AppCompatActivity {
                 toast.show();
                 return true;
             case R.id.Settings:
+                startActivity(new Intent(WeatherActivity.this, PrefActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
