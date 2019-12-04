@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -61,39 +63,32 @@ public class WeatherActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.bar));
 
         // init toast
-        toast = Toast.makeText(WeatherActivity.this, "Nothing new", Toast.LENGTH_SHORT);
+        toast = Toast.makeText(WeatherActivity.this, "Up To Date", Toast.LENGTH_SHORT);
 
-        // add handle for main thread
-        final Handler handler = new Handler(Looper.myLooper()) {
-          @Override
-          public void handleMessage(Message mess){
-              String content = mess.getData().getString("server_response");
-              toast = Toast.makeText(WeatherActivity.this, content, Toast.LENGTH_SHORT);
-              toast.show();
-          }
-        };
-
-        // add thread for refresh
-        Thread t = new Thread(new Runnable() {
+        // build AsyncTask
+        AsyncTask<String, Integer, Bitmap> task = new AsyncTask<String, Integer, Bitmap>() {
             @Override
-            public void run() {
+            protected Bitmap doInBackground(String... strings) {
                 try{
-                    // wait 1 second
-                    Thread.sleep(3000);
-                } catch (InterruptedException ex){
+                    Thread.sleep(5000);
+                } catch(InterruptedException ex){
                     ex.printStackTrace();
                 }
-                // Assume get data from server
-                Bundle bundle = new Bundle();
-                bundle.putString("server_response", "some sample json here");
-
-                // notify main thread
-                Message mess = new Message();
-                mess.setData(bundle);
-                handler.sendMessage(mess);
+                return null;
             }
-        });
-        t.start();
+
+            @Override
+            protected void onProgressUpdate(Integer...values){}
+
+            @Override
+            protected void onPostExecute(Bitmap bitmap){
+                // done in main thread
+                Toast.makeText(WeatherActivity.this, "image is received", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        // run task
+        task.execute("http://ict.usht.edu.vn/wp-content/usth/usthlogo.png");
     }
 
     @Override
@@ -107,7 +102,7 @@ public class WeatherActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.Refresh:
                 toast.show();
-                toast = Toast.makeText(WeatherActivity.this, "Nothing new", Toast.LENGTH_SHORT);
+                toast = Toast.makeText(WeatherActivity.this, "Up To Date", Toast.LENGTH_SHORT);
                 return true;
             case R.id.Settings:
                 startActivity(new Intent(WeatherActivity.this, PrefActivity.class));
