@@ -13,8 +13,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.File;
@@ -33,6 +38,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     private ViewPager pager;
     private WeatherFragmentPagerAdapter adapter;
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,9 @@ public class WeatherActivity extends AppCompatActivity {
 
         // add toolbar for weather activity
         setSupportActionBar((Toolbar) findViewById(R.id.bar));
+
+        // add volley queue for application
+        queue = Volley.newRequestQueue(getApplicationContext());
     }
 
     // Build Customer AsyncTask
@@ -114,6 +123,25 @@ public class WeatherActivity extends AppCompatActivity {
         };
     }
 
+    // Build Customer Volley Request
+    public ImageRequest VolleyRequest(String url){
+        // create a listener for response
+        Response.Listener<Bitmap> listener = new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap bitmap) {
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    WeatherAndForeCasttFragment fm = (WeatherAndForeCasttFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + i);
+                    fm.updateBackground(bitmap);
+                }
+                Toast.makeText(WeatherActivity.this, "image is received", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        // create request
+        return new ImageRequest(url, listener, 0, 0, ImageView.ScaleType.CENTER, Bitmap.Config.ARGB_8888, null);
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
@@ -124,8 +152,7 @@ public class WeatherActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
             case R.id.Refresh:
-                AsyncTask<String, Integer, Bitmap> at = requestImage();
-                at.execute("https://usth.edu.vn/themes/usth/images/logo-white.png");
+                queue.add(VolleyRequest("https://usth.edu.vn/themes/usth/images/logo-white.png"));
                 return true;
             case R.id.Settings:
                 startActivity(new Intent(WeatherActivity.this, PrefActivity.class));
