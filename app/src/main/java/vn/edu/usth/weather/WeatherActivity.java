@@ -3,7 +3,6 @@ package vn.edu.usth.weather;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -11,17 +10,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -35,13 +26,13 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.zip.Inflater;
 
 public class WeatherActivity extends AppCompatActivity {
     // link to storage of file
     private String PathFile = "/sdcard/Download/nhacdubaothoitietvtc14.mp3";
 
     private ViewPager pager;
+    private WeatherFragmentPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +41,7 @@ public class WeatherActivity extends AppCompatActivity {
         Log.i("Create", "call Create");
 
         // create adapter
-        WeatherFragmentPagerAdapter adapter = new WeatherFragmentPagerAdapter(getSupportFragmentManager());
+        adapter = new WeatherFragmentPagerAdapter(getSupportFragmentManager());
         adapter.setResource(getApplicationContext());
 
         pager = findViewById(R.id.pager);
@@ -110,11 +101,13 @@ public class WeatherActivity extends AppCompatActivity {
             protected void onProgressUpdate(Integer...values){}
 
             @Override
-            protected void onPostExecute(Bitmap bitmap){
+            protected void onPostExecute(Bitmap bitmap) {
                 // done in main thread
                 super.onPostExecute(bitmap);
-                WeatherAndForeCasttFragment fm = (WeatherAndForeCasttFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + pager.getCurrentItem());
-                fm.updateBackground(bitmap);
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    WeatherAndForeCasttFragment fm = (WeatherAndForeCasttFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + i);
+                    fm.updateBackground(bitmap);
+                }
                 Toast.makeText(WeatherActivity.this, "image is received", Toast.LENGTH_SHORT).show();
                 cancel(true);
             }
