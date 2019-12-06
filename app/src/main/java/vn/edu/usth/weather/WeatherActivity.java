@@ -3,6 +3,7 @@ package vn.edu.usth.weather;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -17,6 +18,8 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -38,8 +41,7 @@ public class WeatherActivity extends AppCompatActivity {
     // link to storage of file
     private String PathFile = "/sdcard/Download/nhacdubaothoitietvtc14.mp3";
 
-    // toast
-    private Toast toast;
+    private ViewPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class WeatherActivity extends AppCompatActivity {
         WeatherFragmentPagerAdapter adapter = new WeatherFragmentPagerAdapter(getSupportFragmentManager());
         adapter.setResource(getApplicationContext());
 
-        ViewPager pager = findViewById(R.id.pager);
+        pager = findViewById(R.id.pager);
         pager.setOffscreenPageLimit(2);
         pager.setAdapter(adapter);
 
@@ -68,12 +70,11 @@ public class WeatherActivity extends AppCompatActivity {
 
         // add toolbar for weather activity
         setSupportActionBar((Toolbar) findViewById(R.id.bar));
+    }
 
-        // init toast
-        toast = Toast.makeText(WeatherActivity.this, "Up To Date", Toast.LENGTH_SHORT);
-
-        // build AsyncTask
-        AsyncTask<String, Integer, Bitmap> task = new AsyncTask<String, Integer, Bitmap>() {
+    // Build Customer AsyncTask
+    public AsyncTask<String, Integer, Bitmap> requestImage(){
+        return new AsyncTask<String, Integer, Bitmap>() {
             @Override
             protected Bitmap doInBackground(String... strings) {
                 try{
@@ -112,14 +113,12 @@ public class WeatherActivity extends AppCompatActivity {
             protected void onPostExecute(Bitmap bitmap){
                 // done in main thread
                 super.onPostExecute(bitmap);
-                ImageView image = findViewById(R.id.InternetImage);
-                image.setImageBitmap(bitmap);
+                WeatherAndForeCasttFragment fm = (WeatherAndForeCasttFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + pager.getCurrentItem());
+                fm.updateBackground(bitmap);
                 Toast.makeText(WeatherActivity.this, "image is received", Toast.LENGTH_SHORT).show();
+                cancel(true);
             }
         };
-
-        // run task
-        task.execute("https://usth.edu.vn/themes/usth/images/logo-white.png");
     }
 
     @Override
@@ -132,8 +131,8 @@ public class WeatherActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
             case R.id.Refresh:
-                toast.show();
-                toast = Toast.makeText(WeatherActivity.this, "Up To Date", Toast.LENGTH_SHORT);
+                AsyncTask<String, Integer, Bitmap> at = requestImage();
+                at.execute("https://usth.edu.vn/themes/usth/images/logo-white.png");
                 return true;
             case R.id.Settings:
                 startActivity(new Intent(WeatherActivity.this, PrefActivity.class));

@@ -1,6 +1,7 @@
 package vn.edu.usth.weather;
 
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -52,6 +54,11 @@ public class WeatherAndForeCasttFragment extends Fragment {
         obj.setArguments(data);
 
         return obj;
+    }
+
+    public void updateBackground(Bitmap bitmap){
+        ImageView image = getView().findViewById(R.id.InternetImage);
+        image.setImageBitmap(bitmap);
     }
 
 }

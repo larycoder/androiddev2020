@@ -1,6 +1,7 @@
 package vn.edu.usth.weather;
 
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
