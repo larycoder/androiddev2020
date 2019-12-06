@@ -7,14 +7,18 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -25,6 +29,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.zip.Inflater;
 
 public class WeatherActivity extends AppCompatActivity {
@@ -70,8 +77,29 @@ public class WeatherActivity extends AppCompatActivity {
             @Override
             protected Bitmap doInBackground(String... strings) {
                 try{
-                    Thread.sleep(5000);
-                } catch(InterruptedException ex){
+                    // initialize URL
+                    URL url = new URL(strings[0]);
+
+                    // Make a request to server
+                    HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setDoInput(true);
+                    // allow reading response code and response data connection.
+                    connection.connect();
+
+                    // Receive response
+                    int response = connection.getResponseCode();
+                    Log.i("USTHWeather", "The response is: " + response);
+                    InputStream is = connection.getInputStream();
+
+                    // Process image response
+                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+
+                    connection.disconnect();
+                    return bitmap;
+                } catch(MalformedURLException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
                     ex.printStackTrace();
                 }
                 return null;
@@ -83,12 +111,15 @@ public class WeatherActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Bitmap bitmap){
                 // done in main thread
+                super.onPostExecute(bitmap);
+                ImageView image = findViewById(R.id.InternetImage);
+                image.setImageBitmap(bitmap);
                 Toast.makeText(WeatherActivity.this, "image is received", Toast.LENGTH_SHORT).show();
             }
         };
 
         // run task
-        task.execute("http://ict.usht.edu.vn/wp-content/usth/usthlogo.png");
+        task.execute("https://usth.edu.vn/themes/usth/images/logo-white.png");
     }
 
     @Override

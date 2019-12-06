@@ -31,8 +31,8 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // get current view
-        ScrollView sv = (ScrollView) inflater.inflate(R.layout.forecast_fragment, null, false);
-        LinearLayout ll = (LinearLayout) sv.getChildAt(0);
+        View sv = inflater.inflate(R.layout.forecast_fragment, null, false);
+        LinearLayout ll = sv.findViewById(R.id.TableOfWeather);
 
         // setup context of 10 forecast line
         for(int i = 0; i < 7; i++) {
