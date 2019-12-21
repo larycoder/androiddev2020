@@ -31,5 +31,7 @@
         <item name="rain">@drawable/rain</item>
         <item name="sunny">@drawable/sunny</item>
         <item name="cloudy">@drawable/cloudy</item>
+        <item name="Clouds">@drawable/cloudy</item>
+        <item name="Rain">@drawable/rain</item>
     </integer-array>
 </resources>

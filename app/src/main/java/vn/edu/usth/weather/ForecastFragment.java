@@ -36,7 +36,7 @@ public class ForecastFragment extends Fragment {
         LinearLayout ll = sv.findViewById(R.id.TableOfWeather);
 
         // setup context of 10 forecast line
-        for(int i = 0; i < 7; i++) {
+        for(int i = 0; i < 6; i++) {
             LinearLayout line = (LinearLayout) inflater.inflate(R.layout.forecast_line_status, null, false);
             // set name
             ((TextView) line.getChildAt(0)).setText(getResources().getStringArray(R.array.days)[i]);

@@ -16,9 +16,12 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.tabs.TabLayout;
 
@@ -70,6 +73,11 @@ public class WeatherActivity extends AppCompatActivity {
 
         // add volley queue for application
         queue = Volley.newRequestQueue(getApplicationContext());
+
+        // call data first time
+        queue.add(getDataOpenWeather("http://api.openweathermap.org/data/2.5/forecast?q=Hanoi,vn&mode=json&appid=6685a508f3e94ce8120cd85cd13d4033", "0"));
+        queue.add(getDataOpenWeather("http://api.openweathermap.org/data/2.5/forecast?q=Paris,fr&mode=json&appid=6685a508f3e94ce8120cd85cd13d4033", "1"));
+        queue.add(getDataOpenWeather("http://api.openweathermap.org/data/2.5/forecast?q=Toulouse,fr&mode=json&appid=6685a508f3e94ce8120cd85cd13d4033", "2"));
     }
 
     // Build Customer AsyncTask
@@ -141,6 +149,33 @@ public class WeatherActivity extends AppCompatActivity {
         return new ImageRequest(url, listener, 0, 0, ImageView.ScaleType.CENTER, Bitmap.Config.ARGB_8888, null);
     }
 
+    // Build Customer Volley Request for OpenWeather api
+    public StringRequest getDataOpenWeather(String url, String CityID){
+        final String City = CityID; // store ID of Page following City
+
+        // create a listener for response
+        Response.Listener<String> response = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String string) {
+                // do something
+                Toast.makeText(WeatherActivity.this, "Receive data from OpenWeather", Toast.LENGTH_SHORT).show();
+                WeatherAndForeCasttFragment fm = (WeatherAndForeCasttFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + City);
+                fm.updateData(string);
+                Toast.makeText(WeatherActivity.this, "GET new weather data", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        Response.ErrorListener error = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(" Get Open Weather error",error.toString());
+            }
+        };
+
+        // create request
+        return new StringRequest(Request.Method.GET, url, response, error);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -153,6 +188,9 @@ public class WeatherActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.Refresh:
                 queue.add(VolleyRequest("https://usth.edu.vn/themes/usth/images/logo-white.png"));
+                queue.add(getDataOpenWeather("http://api.openweathermap.org/data/2.5/forecast?q=Hanoi,vn&mode=json&appid=6685a508f3e94ce8120cd85cd13d4033", "0"));
+                queue.add(getDataOpenWeather("http://api.openweathermap.org/data/2.5/forecast?q=Paris,fr&mode=json&appid=6685a508f3e94ce8120cd85cd13d4033", "1"));
+                queue.add(getDataOpenWeather("http://api.openweathermap.org/data/2.5/forecast?q=Toulouse,fr&mode=json&appid=6685a508f3e94ce8120cd85cd13d4033", "2"));
                 return true;
             case R.id.Settings:
                 startActivity(new Intent(WeatherActivity.this, PrefActivity.class));
